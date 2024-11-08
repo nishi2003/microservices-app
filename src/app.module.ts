@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from './database/database.module';
-import { AppController } from './app.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ClientProxy } from '@nestjs/microservices';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { OrderModule } from './order/src/order.module';
+import { UserModule } from './user/src/user.module';
 
 @Module({
   imports: [
@@ -18,8 +19,10 @@ import { ClientProxy } from '@nestjs/microservices';
         options: { host: '127.0.0.1', port: 3002 },
       },
     ]),
-    DatabaseModule,
+    OrderModule,
+    UserModule,
   ],
   controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

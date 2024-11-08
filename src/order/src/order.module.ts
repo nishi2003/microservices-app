@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Order } from '../../order/src/entities/order.entity';
+import { Order } from './entities/order.entity';
 import { OrderService } from './order.service';
 import { OrderController } from './order.controller';
-import { User } from '../../user/src/entities/user.entity';
+import { DatabaseModule } from '../../database/database.module'; // Import shared DB module
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), TypeOrmModule.forFeature([Order, User])],
+  imports: [
+    DatabaseModule,
+    TypeOrmModule.forFeature([Order], 'ordersConnection'),
+  ],
   controllers: [OrderController],
   providers: [OrderService],
 })

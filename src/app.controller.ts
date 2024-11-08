@@ -16,7 +16,8 @@ export class AppController {
   ) {}
 
   @Get('users')
-  getUsers(): Observable<any> {
+  getUsers(): Observable<any> | any {
+    // return 'okkkk';
     return this.userServiceClient.send({ cmd: 'get_users' }, {}).pipe(
       catchError((err) => {
         console.error('Error fetching users:', err);
